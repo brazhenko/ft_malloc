@@ -1,0 +1,63 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.so
+*.so.*
+*.dylib
+
+# Build and Executables
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+.idea/
+# TODO need to be returned after all
+cmake-build-debug/
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Undefined Files
+.DS_Store
+
+# vs
+.vs/
+out/build/WSL-Debug/
+out/build/x64-Debug/
