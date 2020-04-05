@@ -6,16 +6,19 @@
 
 int main()
 {
-	malloc(1);
-	realloc(NULL, 2);
-	free(NULL);
 
-	char buf[10];
-	memset(buf, 0, sizeof(buf));
-	do{
-		mmaptest();
-		read(0, buf, sizeof(buf));
-	}
-	while (!strncmp(buf, "r", 1));
+	malloc(1);malloc(1);malloc(1);malloc(1);
+	free(malloc(1));
+	malloc(2);
+	show_alloc_mem();
+	malloc(1);
+
+
+	malloc(4096 + 1);
+	malloc(4096 + 2);
+
+
+	free(malloc(8192 + 10));
+	show_alloc_mem();
 	return 0;
 }

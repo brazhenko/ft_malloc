@@ -27,20 +27,47 @@ void 	insert_cluster_to_begin(t_cluster *cluster)
 	g_start_address = (void*)cluster;
 }
 
-void	*malloc(size_t size)
+void	*find_free_block(int cluster_type, size_t size)
 {
 	FUNCNAME()
+	t_cluster	*cluster;
+	t_block		*free_block;
 
+	if (cluster_type == CLUSTER_HUGE)
+		return (NULL);
+	if (!g_start_address)
+		return (NULL);
+	cluster = g_start_address;
+	while (cluster)
+	{
+		if (cluster->cluster_type == cluster_type)
+		{
+			free_block = get_free_block_from_cluster(cluster, size);
+			if (free_block)
+				return (free_block);
+		}
+		// i++
+		cluster = cluster->next;
+	}
+	return (NULL);
+}
+
+void	*malloc(size_t size)
+{
+	// в каком кластере нам искать надо
 	int cluster_type = get_cluster_type_by_size(size);
+	// ищем в уже запрошенных у оси блоках
 	void *block = find_free_block(cluster_type, size);
 
 	if (block)
 		return (block);
 
+	// создаем новый кластер, g_start_address изменится
 	t_cluster	*new_cluster = init_new_cluster(cluster_type, size);
+	// забираем блок с кластера
+	block = get_free_block_from_cluster(new_cluster, size);
 
-
-	return (NULL);
+	return (block);
 }
 
 void	*realloc(void *ptr, size_t size)
@@ -55,23 +82,19 @@ void	free(void *ptr)
 
 	if (!ptr)
 		return ;
-	((t_block *)(ptr - sizeof(t_block)))->in_use = 0;
+	t_block	*block;
+	block = ((t_block *)(ptr - sizeof(t_block)));
+	block->in_use = 0;
+	t_cluster	*cluster = block->parent;
+	cluster->count--;
+	if (cluster->count == 0)
+	{
+		if (block->parent->next)
+			block->parent->next->prev = block->parent->prev;
+		if (block->parent->prev)
+			block->parent->prev->next = block->parent->next;
+		if (cluster == g_start_address)
+			g_start_address = cluster->next;
+		cluster_free(cluster);
+	}
 }
-
-# define TESTFILE1 "testfile.txt"
-# define TESTFILE2_O "test123.txt"
-# define ALLOC_SIZE 100000
-
-void	mmaptest()
-{
-	char* ptr_zone = mmap(0,
-			1,
-			PROT_READ | PROT_WRITE,
-			MAP_ANON | MAP_PRIVATE,
-			-1,
-			0);
-
-	// memset(ptr_zone, 0, ALLOC_SIZE);
-	printf("%lld\n", (long long)ptr_zone);
-}
-
