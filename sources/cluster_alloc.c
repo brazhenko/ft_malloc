@@ -2,7 +2,7 @@
 // Created by 17641238 on 05.04.2020.
 //
 
-#include "memory.h"
+#include "malloc.h"
 
 t_cluster		*cluster_alloc(size_t size)
 {

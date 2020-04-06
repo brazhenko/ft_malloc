@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "memory.h"
+#include "malloc.h"
 
 extern void* g_start_address;
 
@@ -22,11 +22,14 @@ void	show_alloc_mem(void)
 
 	while (cluster)
 	{
-		printf("Cluster type: %d, Size: %zu, Count: %zu\n", cluster->cluster_type, cluster->size, cluster->count);
+		printf("Cluster type: %d, Size: %zu, real size: %zu, Count: %zu, Begin: %zu, End: %zu\n",
+			cluster->cluster_type, cluster->size, cluster->size + sizeof(t_cluster), cluster->count,
+				(size_t)cluster, (size_t)cluster->end_);
 		lpblock = ((t_block*)(((void*)cluster) + sizeof(*cluster)));
 		while ((void*)lpblock < ((void*)cluster) + cluster->size)
 		{
-			printf("%p | in_use: %d | size: %zu\n", lpblock, lpblock->in_use, lpblock->size);
+			printf("%p | in_use: %d | size: %8zu | real size: %8zu \n",
+					lpblock, lpblock->in_use, lpblock->size, lpblock->size + sizeof(t_block));
 			lpblock = ((void*)lpblock) + (sizeof(t_block) + lpblock->size);
 		}
 		// increment

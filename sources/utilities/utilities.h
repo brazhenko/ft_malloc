@@ -1,0 +1,8 @@
+//
+// Created by 17641238 on 06.04.2020.
+//
+
+#ifndef FT_MALLOC_UTILITIES_H
+#define FT_MALLOC_UTILITIES_H
+
+#endif //FT_MALLOC_UTILITIES_H
