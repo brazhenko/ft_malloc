@@ -7,8 +7,18 @@ set(CMAKE_C_STANDARD 99)
 
 #message("$ENV{BUILD_DIR} -- ")
 
-add_library(${PROJECT_NAME} SHARED sources/mutex_manager.c sources/memory.c memory.h sources/malloc.c sources/show_alloc_mem.c sources/cluster_alloc.c sources/utilities/utilities.h sources/utilities/memset.c sources/utilities/memcpy.c sources/realloc.c sources/free.c sources/init_new_cluster.c sources/get_free_block_from_cluster.c sources/service_funcs.c sources/malloc.h sources/main_wrappers.c)
+
+add_library(${PROJECT_NAME} SHARED sources/mutex_manager.c sources/memory.c memory.h sources/malloc.c sources/show_alloc_mem.c sources/cluster_alloc.c sources/utilities/utilities.h sources/utilities/memset.c sources/utilities/memcpy.c sources/realloc.c sources/free.c sources/init_new_cluster.c sources/get_free_block_from_cluster.c sources/service_funcs.c sources/malloc.h sources/main_wrappers.c sources/allocc_logger.c)
 target_link_libraries(${PROJECT_NAME} pthread)
 
+
+
+
+
+
 add_executable(test main.c)
-target_link_libraries(test ${PROJECT_NAME})
+target_link_libraries(test
+		${PROJECT_NAME}
+		${GLFLIB}
+		${OPENGL_LIBRARIES}
+		)

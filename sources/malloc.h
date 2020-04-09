@@ -5,6 +5,7 @@
 #ifndef FT_MALLOC_MALLOC_H
 #define FT_MALLOC_MALLOC_H
 
+# define LOGGER_AVAILABLE 1
 #include "../memory.h"
 
 # include <sys/mman.h>
@@ -28,6 +29,7 @@
 #define SIZEPRT(P) {\
 	printf("%s: %zu\n", #P, P);\
 }
+
 
 
 /*
@@ -78,5 +80,19 @@ void		unlock_();
 void		*realloc_(void *ptr, size_t size);
 void		*malloc_(size_t size);
 void		free_(void *ptr);
+
+# if LOGGER_AVAILABLE
+
+/*
+ *		thred-safe logger
+ */
+
+# define LOGFLODER				"/tmp"
+# define LOGFILENAME			"com.lreznak-.malloc.log"
+# define LOG_FILE_FULL_PATH		"/tmp/com.lreznak-.malloc.log"
+
+int		alloc_logger(int status, void *ptr, size_t size);
+
+# endif
 
 #endif //FT_MALLOC_MALLOC_H

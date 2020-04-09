@@ -15,7 +15,7 @@ t_cluster		*cluster_alloc(size_t size)
 			MAP_ANON | MAP_PRIVATE,
 			-1,
 			0);
-	if (MAP_FAILED == cluster)
+	if (cluster == MAP_FAILED)
 		return (NULL);
 	return (cluster);
 }
