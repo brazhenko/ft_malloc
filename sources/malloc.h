@@ -14,11 +14,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#define FUNCNAME() {\
-	printf(">");\
-    printf(__FUNCTION__); \
-	printf("\n"); \
-}
+#define FUNCNAME() // {\
+//	printf(">");\
+//    printf(__FUNCTION__); \
+//	printf("\n"); \
+//}
 
 #define PTRPRT(P) {\
 	printf("%s: %p | %zu\n", #P, P, (size_t)P);\

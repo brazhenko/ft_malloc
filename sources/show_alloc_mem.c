@@ -9,8 +9,11 @@ extern void* g_start_address;
 
 void	show_alloc_mem(void)
 {
-	printf("==%s= g_start_address: %p | page_size: %d | sizeof(t_block): "
-		"%zu | sizeof(t_cluster): %zu ===============\n", __FUNCTION__,
+	printf("========================%s========================\n"
+		"g_start_address: %p |"
+		"page_size: %d | sizeof(t_block): "
+		"%zu | sizeof(t_cluster): %zu \n",
+			__FUNCTION__,
 			g_start_address,
 			getpagesize(),
 			sizeof(t_block),

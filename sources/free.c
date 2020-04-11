@@ -9,7 +9,6 @@ extern void	*g_start_address;
 void	free_(void *ptr)
 {
 	FUNCNAME()
-	PTRPRT(ptr)
 
 	if (!ptr)
 		return ;
