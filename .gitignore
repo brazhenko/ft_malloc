@@ -44,6 +44,7 @@ cmake-build-debug/
 *.dSYM/
 *.su
 *.idb
+42m/
 
 # Kernel Module Compile Results
 *.mod*

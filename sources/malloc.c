@@ -5,8 +5,6 @@
 
 
 #include "malloc.h"
-#include <sys/errno.h>
-#include <stdio.h>
 
 extern void		*g_start_address;
 

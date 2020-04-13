@@ -17,9 +17,29 @@ set(OPENGL_INCLUDE_DIR /usr/local/include)
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+
+find_package(GLEW REQUIRED)
+if (GLEW_FOUND)
+	include_directories(${GLEW_INCLUDE_DIRS})
+	#link_libraries(${GLEW_LIBRARIES})
+endif()
+
+
+include_directories(imgui)
+include_directories(imgui/examples)
+include_directories(imgui/examples/libs/gl3w)
+include_directories(/usr/local/include)
+include_directories(/opt/local/include)
+add_executable(${PROJECT_NAME} src/main.cpp imgui/imgui.cpp imgui/imgui_demo.cpp imgui/imgui_draw.cpp imgui/imgui_widgets.cpp
+		imgui/examples/imgui_impl_opengl3.cpp
+		imgui/examples/imgui_impl_opengl3.h
+		imgui/examples/imgui_impl_glfw.cpp
+		imgui/examples/imgui_impl_glfw.h
+		imgui/examples/libs/gl3w/GL/gl3w.c
+		)
 
 target_link_libraries(${PROJECT_NAME}
 		${GLFLIB}
 		${OPENGL_LIBRARIES}
+		GLEW::GLEW
 		)

@@ -90,8 +90,10 @@ void		free_(void *ptr);
 # define LOGFLODER				"/tmp"
 # define LOGFILENAME			"com.lreznak-.malloc.log"
 # define LOG_FILE_FULL_PATH		"/tmp/com.lreznak-.malloc.log"
-
+# define HEX_DUMP_FULL_PATH		"/tmp/com.lreznak-.malloc_hex_dump.log"
+# define HEX_DUMP_FILE_CHANGED	"/tmp/com.lreznak-.malloc_hex_dump_.log"
 int		alloc_logger(int status, void *ptr, size_t size);
+void		mem_dump();
 
 # endif
 

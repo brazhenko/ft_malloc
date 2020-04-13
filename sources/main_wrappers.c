@@ -11,6 +11,7 @@ void		*malloc(size_t size)
 	lock_();
 	ret = malloc_(size);
 	unlock_();
+	mem_dump();
 	return (ret);
 }
 
@@ -21,6 +22,7 @@ void		*realloc(void *ptr, size_t size)
 	lock_();
 	ret = realloc_(ptr, size);
 	unlock_();
+	mem_dump();
 	return (ret);
 }
 
@@ -29,4 +31,5 @@ void		free(void *ptr)
 	lock_();
 	free_(ptr);
 	unlock_();
+	mem_dump();
 }

@@ -12,7 +12,7 @@ void	*g_start_address;
 **	size_t size:
 **	[size] - size of bytes need to be reallocated
 **
-**	According to C11:
+**	According to C standard:
 **	http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf
 **	1) if [ptr] == NULL realloc() returns malloc(size)
 **	NOTE: if size == 0 behavior is relied on malloc
@@ -27,9 +27,7 @@ void	*realloc_(void *ptr, size_t size)
 	FUNCNAME()
 
 	if (!ptr)
-	{
 		return (malloc(size));
-	}
 
 	if (!size)
 	{
@@ -39,9 +37,7 @@ void	*realloc_(void *ptr, size_t size)
 	t_block		*current_block = ptr - sizeof(t_block);
 
 	if (size <= current_block->size)
-	{
 		return (ptr);
-	}
 
 	t_block	*next_block = get_next_block(current_block);
 	if (next_block && !next_block->in_use)
@@ -56,13 +52,10 @@ void	*realloc_(void *ptr, size_t size)
 			return (ptr);
 		}
 	}
-	else
-	{
-		void	*new_ptr = malloc(size);
-		if (!new_ptr)
-			return (NULL);
-		memcpy(new_ptr, ptr + sizeof(t_block), current_block->size);
-		free(ptr);
-	}
-	return (NULL);
+	void	*new_ptr = malloc(size);
+	if (!new_ptr)
+		return (NULL);
+	memcpy(new_ptr, ptr + sizeof(t_block), current_block->size);
+	free(ptr);
+	return (new_ptr);
 }
