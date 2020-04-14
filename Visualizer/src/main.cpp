@@ -1,3 +1,5 @@
+# warning "Totally shitty code"
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -95,12 +97,14 @@ int main(int, char**)
 		return 1;
 	}
 	std::vector<ImColor>	colorBoxes;
-	ImColor ImWhite{255, 255, 255}; // Free Cell
-	ImColor CellFireRed{178,34,34};
-	ImColor CellUnknown{0, 0, 0};
-	ImColor CellZoneHead{0,255,255};
-	ImColor CellBlockHead{102,102,0};
+
+	ImColor Cluster{0xFF, 0xFF, 0x00};
+	ImColor Block{0x33,0x30, 0x86};
+	ImColor FreeCell{0xC9, 0xF7, 0x6F};
+	ImColor Usedcell{0xFF, 0x45, 0x40};
+
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	std::stringstream archive;
 
 	// Main loop
 	while (!glfwWindowShouldClose(window))
@@ -120,7 +124,7 @@ int main(int, char**)
 			if (!HWstart)
 			{
 				HWstart = true;
-				ImGui::SetWindowSize({350, 200});
+				ImGui::SetWindowSize({350, 300});
 			}
 			// Config boxes
 			ImGui::Checkbox("memory Window", &show_memory_window);
@@ -128,26 +132,21 @@ int main(int, char**)
 			ImGui::Checkbox("Small Clusters", &show_small_clusters);
 			ImGui::Checkbox("Huge Clusters", &show_huge_clusters);
 
-//			ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-//			ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-			if (ImGui::Button("<<"))
-				counter++;
-			ImGui::SameLine();
 			if (ImGui::Button(">>"))
 			{
 				colorBoxes.clear();
 				std::string line;
 				while (getline(logFile, line))
 				{
+					archive << line;
 					std::stringstream ss(line);
 					char c;
 					ss >> c;
 					if (c == 'C')
-					{colorBoxes.push_back(CellZoneHead);}
+					{colorBoxes.push_back(Cluster);}
 					else if (c == 'B')
 					{
-						colorBoxes.push_back(CellBlockHead);
+						colorBoxes.push_back(Block);
 						ss >> c;
 						size_t		address;
 						ss >> std::hex >> address;
@@ -158,19 +157,35 @@ int main(int, char**)
 
 						while (address)
 						{
-							colorBoxes.push_back(c == '1' ? CellFireRed : ImWhite);
+							colorBoxes.push_back(c == '1' ? Usedcell : FreeCell);
 							address >>= 2U;
 						}
 					}
 					if (line == "***")
 						break;
-
 				}
 				std::cout << "COUNT" << colorBoxes.size() << std::endl;
 			}
-			ImGui::Text("counter = %d", counter);
+			ImDrawList* draw_list = ImGui::GetWindowDrawList();
 
-			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+			const ImVec2 p = ImGui::GetCursorScreenPos();
+			draw_list->AddRectFilled(ImVec2(p.x, p.y), ImVec2(p.x + 20, p.y + 20), Cluster);
+			ImGui::Text("   Start of memory zone");
+
+			const ImVec2 p1 = ImGui::GetCursorScreenPos();
+			draw_list->AddRectFilled(ImVec2(p1.x, p1.y), ImVec2(p1.x + 20, p1.y + 20), Block);
+			ImGui::Text("   Start of memory block");
+
+			const ImVec2 p2 = ImGui::GetCursorScreenPos();
+			draw_list->AddRectFilled(ImVec2(p2.x, p2.y), ImVec2(p2.x + 20, p2.y + 20), FreeCell);
+			ImGui::Text("   Free memory cells");
+
+			const ImVec2 p3 = ImGui::GetCursorScreenPos();
+			draw_list->AddRectFilled(ImVec2(p3.x, p3.y), ImVec2(p3.x + 20, p3.y + 20), Usedcell);
+			ImGui::Text("   Used memory cells");
+
+			ImGui::Text("\nApplication average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
 			ImGui::End();
 		}
 
@@ -183,28 +198,23 @@ int main(int, char**)
 				SMstart = true;
 				ImGui::SetWindowSize({870, 620});
 			}
-			ImDrawList* draw_list = ImGui::GetWindowDrawList();
-			const ImVec2 p = ImGui::GetCursorScreenPos();
+
 			static ImVec4 colf = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 			const ImU32 col = ImColor(colf);
-			float x = p.x + 4.0f, y = p.y + 4.0f;
-			static float sz = 100.0f;
-			static float thickness = 10.0f;
-			size_t color = 0;
+			ImDrawList* draw_list = ImGui::GetWindowDrawList();
+			const ImVec2 p = ImGui::GetCursorScreenPos();
 
+			float i = p.x;
+			float j = p.y;
+			for (auto & colorBoxe : colorBoxes)
 			{
-				float i = p.x;
-				float j = p.y;
-				for (auto & colorBoxe : colorBoxes)
+				if (p.x + ImGui::GetWindowSize().x < i + 10)
 				{
-					if (p.x + ImGui::GetWindowSize().x < i + 10)
-					{
-						i = p.x;
-						j += 20;
-					}
-					draw_list->AddRectFilled(ImVec2(i, j), ImVec2(i + 20, j + 20), colorBoxe);
-					i += 20;
+					i = p.x;
+					j += 20;
 				}
+				draw_list->AddRectFilled(ImVec2(i, j), ImVec2(i + 20, j + 20), colorBoxe);
+				i += 20;
 			}
 			ImGui::End();
 		}
@@ -224,7 +234,6 @@ int main(int, char**)
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
