@@ -45,6 +45,7 @@ cmake-build-debug/
 *.su
 *.idb
 42m/
+42-ft_malloc/
 
 # Kernel Module Compile Results
 *.mod*

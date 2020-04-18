@@ -1,14 +1,20 @@
-//
-// Created by 17641238 on 03.04.2020.
-//
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/15 00:14:38 by a17641238         #+#    #+#             */
+/*   Updated: 2020/04/17 23:01:44 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "malloc.h"
 
 extern void		*g_start_address;
 
-static void	*find_free_block(int cluster_type, size_t size)
+static void		*find_free_block(const int cluster_type, const size_t size)
 {
 	FUNCNAME()
 	t_cluster	*cluster;
@@ -27,13 +33,12 @@ static void	*find_free_block(int cluster_type, size_t size)
 			if (free_block)
 				return (free_block);
 		}
-		// i++
 		cluster = cluster->next;
 	}
 	return (NULL);
 }
 
-static int get_cluster_type_by_size(size_t size)
+static uint8_t	get_cluster_type_by_required_size(const size_t size)
 {
 	if (0 <= size
 			&& size <= TYNY_CLUSTER_LIMIT)
@@ -44,25 +49,19 @@ static int get_cluster_type_by_size(size_t size)
 	return CLUSTER_HUGE;
 }
 
-void	*malloc_(size_t size)
+void			*malloc_(size_t size)
 {
+	const uint8_t cluster_type = get_cluster_type_by_required_size(size);
 	void *block;
 
 	if (size == 0)
 		return (NULL);
-
-	// в каком кластере нам искать надо
-	int cluster_type = get_cluster_type_by_size(size);
-
-	// ищем в уже запрошенных у оси блоках
 	block = find_free_block(cluster_type, size);
-
 	if (block)
 		return (block);
-
 	// создаем новый кластер, g_start_address изменится
-	t_cluster	*new_cluster = init_new_cluster(cluster_type, size);
+	t_cluster	*cluster = new_cluster(cluster_type, size);
 	// забираем блок из кластера
-	block = get_free_block_from_cluster(new_cluster, size);
+	block = get_free_block_from_cluster(cluster, size);
 	return (block);
 }

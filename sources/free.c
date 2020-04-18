@@ -1,45 +1,52 @@
-//
-// Created by 17641238 on 06.04.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/15 00:13:57 by a17641238         #+#    #+#             */
+/*   Updated: 2020/04/18 13:27:30 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "malloc.h"
 
 extern void	*g_start_address;
 
-void	free_(void *ptr)
+static void		cluster_free(t_cluster *cluster)
+{
+	munmap(cluster, cluster->size);
+}
+
+static void		erase_cluster(t_cluster *cluster)
+{
+	if (cluster->next)
+		cluster->next->prev = cluster->prev;
+	if (cluster->prev)
+		cluster->prev->next = cluster->next;
+	if (cluster == g_start_address)
+		g_start_address = cluster->next;
+	cluster_free(cluster);
+}
+
+void			free_(void *ptr)
 {
 	FUNCNAME()
+	t_cluster		*cluster;
+	t_block			*block;
 
-	if (!ptr)
+	if (!is_block_valid(ptr))
 		return ;
-
-	t_block	*block;
 	block = ((t_block *)(ptr - sizeof(t_block)));
 	block->in_use = 0;
-
 	// уменьшить счетчик занятых блоков
-	t_cluster	*cluster = block->parent;
+	cluster = block->parent;
 	cluster->count--;
-	// перецепить указатели зон памяти
 	if (cluster->count == 0)
 	{
-		if (block->parent->next)
-			block->parent->next->prev = block->parent->prev;
-		if (block->parent->prev)
-			block->parent->prev->next = block->parent->next;
-		if (cluster == g_start_address)
-			g_start_address = cluster->next;
-		cluster_free(cluster);
-		return ;
+		erase_cluster(cluster);
+		return;
 	}
-
-	// слить неиспользуемый передний блок для дефрагментации
-	t_block		*next_block = (void*)block + sizeof(t_block) + block->size;
-	if ((void*)next_block
-			< ((void*)cluster) + sizeof(t_cluster) + cluster->size
-			/* не вышло за пределеы кластера */
-			&& !next_block->in_use
-		/* И не в использовании */
-			)
-		block->size += (next_block->size + sizeof(t_block));
+	defragment_memory_start_from_block(block);
 }

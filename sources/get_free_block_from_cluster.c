@@ -1,6 +1,14 @@
-//
-// Created by 17641238 on 06.04.2020.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_free_block_from_cluster.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/15 00:14:11 by a17641238         #+#    #+#             */
+/*   Updated: 2020/04/18 13:43:02 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "malloc.h"
 
@@ -18,16 +26,15 @@ t_block			*get_free_block_from_cluster(t_cluster *cluster, size_t need)
 		tmp = (t_block*)ptr;
 		if (!tmp->in_use && need <= tmp->size)
 		{
-			if ( /* Остатка памяти хватает хоть на 1 t_block и еще 1 байт */
-					tmp->size
-							> sizeof(t_block) + sizeof(char)  + need + sizeof(t_block))
+			if (/* Остатка памяти хватает хоть на 1 t_block и еще 1 байт */
+				tmp->size > need + sizeof(t_block) + sizeof(char))
 			{
 				((t_block*)(ptr + sizeof(t_block) + need))->size
 						= tmp->size - need - sizeof(t_block);
 				((t_block*)(ptr + sizeof(t_block) + need))->in_use = 0;
 				((t_block*)(ptr + sizeof(t_block) + need))->parent = cluster;
+				tmp->size = need;
 			}
-			tmp->size = need;
 			tmp->in_use = 1;
 			tmp->parent = cluster;
 			cluster->count++;
