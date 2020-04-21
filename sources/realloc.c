@@ -6,11 +6,12 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:15:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/18 01:57:12 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 19:09:14 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+#include "utilities/utilities.h"
 
 void	*g_start_address;
 
@@ -32,11 +33,11 @@ void	*g_start_address;
 
 void	*realloc_(void *ptr, size_t size)
 {
-	FUNCNAME()
 	void		*new_ptr;
 	t_block		*current_block = ptr - sizeof(t_block);
+	t_cluster	*parent;
 
-	if (!is_block_valid(ptr))
+	if (!is_block_valid(ptr, &parent))
 		return (NULL);
 	if (!size)
 	{
@@ -45,14 +46,14 @@ void	*realloc_(void *ptr, size_t size)
 	}
 	if (size <= current_block->size)
 		return (ptr);
-	t_block	*next_block = get_next_block(current_block);
+	t_block	*next_block = get_next_block(current_block, parent);
 	if (next_block && !next_block->in_use)
 	{
-		defragment_memory_start_from_block(next_block);
+		defragment_memory_start_from_block(next_block, parent);
 		if (next_block->size + sizeof(t_block) + current_block->size >= size)
 		{
 			next_block->size -= (size - current_block->size);
-			memmove(((void*)next_block) + (size - current_block->size),
+			memmove_(((void*)next_block) + (size - current_block->size),
 					((void*)next_block), sizeof(t_block));
 			current_block->size = size;
 			return (ptr);
@@ -61,7 +62,7 @@ void	*realloc_(void *ptr, size_t size)
 	new_ptr = malloc_(size);
 	if (!new_ptr)
 		return (NULL);
-	memcpy(new_ptr, ptr, current_block->size);
+	memcpy_(new_ptr, ptr, current_block->size);
 	free_(ptr);
 	return (new_ptr);
 }

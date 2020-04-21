@@ -12,6 +12,17 @@
 
 #include <pthread.h>
 
+/*
+** g_address_mutex
+** Main mutex which is guarding alloca's private structures from data races.
+**
+** lock_()
+** enables the guard
+**
+** unlock_()
+** disables the guard
+*/
+
 pthread_mutex_t		g_address_mutex;
 
 void		lock_()

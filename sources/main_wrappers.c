@@ -12,6 +12,10 @@
 
 #include "malloc.h"
 
+/*
+**	thread-safe version of malloc_
+*/
+
 void		*malloc(size_t size)
 {
 	void		*ret;
@@ -23,6 +27,10 @@ void		*malloc(size_t size)
 	return (ret);
 }
 
+/*
+**	thread-safe version of realloc_
+*/
+
 void		*realloc(void *ptr, size_t size)
 {
 	void		*ret;
@@ -33,6 +41,10 @@ void		*realloc(void *ptr, size_t size)
 	mem_dump();
 	return (ret);
 }
+
+/*
+**	thread-safe version of free_
+*/
 
 void		free(void *ptr)
 {

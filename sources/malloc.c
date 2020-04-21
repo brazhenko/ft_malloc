@@ -16,7 +16,6 @@ extern void		*g_start_address;
 
 static void		*find_free_block(const int cluster_type, const size_t size)
 {
-	FUNCNAME()
 	t_cluster	*cluster;
 	t_block		*free_block;
 

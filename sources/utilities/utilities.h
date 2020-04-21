@@ -11,4 +11,28 @@ void	*memcpy_m(void *restrict dst, const void *restrict src, size_t n);
 void	*memset_m(void *b, int c, size_t len);
 void	*memmove_m(void *dst, const void *src, size_t len);
 
+int		itoa(int num, unsigned char* str, int len, int base);
+void	*memset_(void *b, int c, size_t len);
+void	*memcpy_(void *dst, const void *src, size_t n);
+char	*strcat_(char *s1, const char *s2);
+void	*memmove_(void *dst, const void *src, size_t len);
+
+
+
+int 	mem_to_hex_endl(
+		char *out,
+		void *mem,
+		size_t size,
+		char separator);
+int 	mem_to_hex_brackets_endl(
+		char *out,
+		void *mem,
+		size_t size,
+		char separator);
+int 	mem_to_hex_curly_endl(
+		char *out,
+		void *mem,
+		size_t size,
+		char separator);
+
 #endif //FT_MALLOC_UTILITIES_H

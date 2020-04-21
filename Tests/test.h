@@ -72,6 +72,7 @@ int test4()
 }
 #include <strings.h>
 #include <stdlib.h>
+#include "../sources/malloc.h"
 
 #define M (1024 * 1024)
 
@@ -103,6 +104,7 @@ int test6()
 	free((void *)addr + 5);
 	if (realloc((void *)addr + 5, 10) == NULL)
 		print("Bonjours\n");
+	return 1;
 }
 
 int test7()
@@ -114,6 +116,7 @@ int test7()
 	free((void *)addr + 5);
 	if (realloc((void *)addr + 5, 0) == NULL)
 		print("Bonjours\n");
+	return 1;
 }
 
 int test8()
@@ -125,6 +128,20 @@ int test8()
 	malloc(1024 * 1024 * 128);
 	show_alloc_mem();
 	return (0);
+}
+
+int testHexPrint()
+{
+	char 	mem[1024];
+	char 	out[1024];
+
+	for (int i = 0; i < 256; i++)
+	{
+		mem[i] = i;
+	}
+	mem_to_hex(out, mem, 256, ' ');
+	printf("out: %s\n", out);
+	return 0;
 }
 
 # define MAKE_TEST(TEST) {\

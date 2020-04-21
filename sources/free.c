@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:13:57 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/18 13:27:30 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/20 21:05:31 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ static void		erase_cluster(t_cluster *cluster)
 
 void			free_(void *ptr)
 {
-	FUNCNAME()
 	t_cluster		*cluster;
 	t_block			*block;
+	t_cluster		*parent;
 
-	if (!is_block_valid(ptr))
+	if (!is_block_valid(ptr, &parent))
 		return ;
 	block = ((t_block *)(ptr - sizeof(t_block)));
 	block->in_use = 0;
 	// уменьшить счетчик занятых блоков
-	cluster = block->parent;
+	cluster = parent;//block->parent;
 	cluster->count--;
-	if (cluster->count == 0)
+	if (cluster->count == 0 && cluster->cluster_type == CLUSTER_HUGE)
 	{
 		erase_cluster(cluster);
 		return;
 	}
-	defragment_memory_start_from_block(block);
+	defragment_memory_start_from_block(block, parent);
 }

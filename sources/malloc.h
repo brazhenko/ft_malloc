@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:41 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/18 01:57:12 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 19:08:45 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#define FUNCNAME() // {\
-//	printf(">");\
-//    printf(__FUNCTION__); \
-//	printf("\n"); \
-//}
-
-#define PTRPRT(P) {\
-	printf("%s: %p | %zu\n", #P, P, (size_t)P);\
-}
-#define INTPRT(P) {\
-	printf("%s: %d\n", #P, P);\
-}
-#define SIZEPRT(P) {\
-	printf("%s: %zu\n", #P, P);\
-}
-
-
 
 /*
 **	Zone type
@@ -51,60 +34,83 @@
 # define TYNY_CLUSTER_LIMIT 	4096
 # define SMALL_CLUSTER_LIMIT	8192
 
-# define PAGES_PER_TINY_BLOCK	2
-# define PAGES_PER_SMALL_BLOCK	16
+# define PAGES_PER_TINY_BLOCK	16
+# define PAGES_PER_SMALL_BLOCK	32
+
+/*
+** struct		s_cluster
+**
+** This structure represents the data stored about each cluster
+** where [struct s_block]s are stored.
+*/
 
 typedef struct		s_cluster
 {
 	size_t				size;
-	int					cluster_type;
 	size_t				count;
 	void				*end_;
 	struct s_cluster	*prev;
 	struct s_cluster	*next;
+	uint8_t				cluster_type;
 }					t_cluster;
 
+/*
+** struct		s_block
+**
+** This structure represents the data stored about each `pointer`
+** returned by malloc/realloc.
+*/
 
 typedef struct		s_block
 {
-	size_t				size;
-	struct s_cluster	*parent;
-	uint8_t				in_use;
+	unsigned		size;
+	uint8_t			in_use;
 }					t_block;
 
-t_block		*get_next_block(t_block *block);
-void		defragment_memory_start_from_block(t_block *block);
+t_block		*get_next_block(t_block *block, t_cluster *block_parent);
+void		defragment_memory_start_from_block(t_block *block,
+													t_cluster *block_parent);
 t_block		*get_free_block_from_cluster(t_cluster *cluster, size_t need);
 t_cluster	*new_cluster(uint8_t cluster_type, size_t size);
-int			is_block_valid(const void *ptr);
+int			is_block_valid(const void *ptr, t_cluster** out);
 
 /*
-**		memory acces protection
+**	memory access protection
 */
 
 void		lock_();
 void		unlock_();
 
 /*
-**		main wrappers
+**	thread-UNSAFE versions if lib malloc/readlloc/free functions
 */
 
 void		*realloc_(void *ptr, size_t size);
 void		*malloc_(size_t size);
 void		free_(void *ptr);
 
-# if LOGGER_AVAILABLE
-
+////////////////////////////////////////////////////////////////////////////////
+# if LOGGER_AVAILABLE														////
 /*
  *		thread-safe logger
  */
 
 # define LOG_FILE_FULL_PATH		"/tmp/com.lreznak-.malloc.log"
+# define LOG_FILE_FULL_PATH2		"/tmp/com.SYSCALLlreznak-.malloc.log"
 # define HEX_DUMP_FULL_PATH		"/tmp/com.lreznak-.malloc_hex_dump.log"
 # define HEX_DUMP_FILE_CHANGED	"/tmp/com.lreznak-.malloc_hex_dump_.log"
-int			alloc_logger(int status, void *ptr, size_t size);
 void		mem_dump();
+# endif																		////
+////////////////////////////////////////////////////////////////////////////////
 
-# endif
+/*
+ * Utilities
+ */
+
+char 	*mem_to_hex(
+		char *out,
+		void *mem,
+		size_t size,
+		char separator);
 
 #endif //FT_MALLOC_MALLOC_H

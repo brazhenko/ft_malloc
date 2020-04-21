@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_cluster.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/19 23:27:23 by a17641238         #+#    #+#             */
+/*   Updated: 2020/04/21 19:09:31 by a17641238        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "malloc.h"
+#include "utilities/utilities.h"
 
 extern void* g_start_address;
 
@@ -33,11 +46,10 @@ static void 		insert_cluster_to_begin(t_cluster *cluster)
 
 static void			init_cluster_first_block(t_cluster *cluster)
 {
-	FUNCNAME()
 	t_block		*first_block;
 
 	first_block = ((void *)cluster) + sizeof(t_cluster);
-	memset(first_block, 0, sizeof(t_block));
+	memset_(first_block, 0, sizeof(t_block));
 	first_block->size = cluster->size - sizeof(t_block);
 }
 
@@ -45,7 +57,7 @@ static void			init_cluster_data(const int cluster_type,
 		t_cluster *ret,
 		const size_t size_to_alloc)
 {
-	memset(ret, 0, sizeof(t_cluster));
+	memset_(ret, 0, sizeof(t_cluster));
 	ret->size = size_to_alloc - sizeof(t_cluster);
 	ret->end_ = ((void*)ret) + sizeof(t_cluster) + ret->size;
 	ret->cluster_type = cluster_type;
@@ -61,7 +73,6 @@ static void			init_cluster_data(const int cluster_type,
 
 t_cluster			*new_cluster(uint8_t cluster_type, size_t size)
 {
-	FUNCNAME()
 	t_cluster	*ret;
 	size_t		size_to_alloc;
 	size_t		modulo;
