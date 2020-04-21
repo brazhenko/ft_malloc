@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:15:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 19:09:14 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:03:28 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ void	*g_start_address;
 void	*realloc_(void *ptr, size_t size)
 {
 	void		*new_ptr;
-	t_block		*current_block = ptr - sizeof(t_block);
+	t_block		*current_block;
 	t_cluster	*parent;
+	t_block		*next_block;
 
 	if (!is_block_valid(ptr, &parent))
 		return (NULL);
@@ -44,9 +45,10 @@ void	*realloc_(void *ptr, size_t size)
 		free_(ptr);
 		return (NULL);
 	}
+	current_block = ptr - sizeof(t_block);
 	if (size <= current_block->size)
 		return (ptr);
-	t_block	*next_block = get_next_block(current_block, parent);
+	next_block = get_next_block(current_block, parent);
 	if (next_block && !next_block->in_use)
 	{
 		defragment_memory_start_from_block(next_block, parent);

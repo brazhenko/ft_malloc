@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:13:57 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/20 21:05:31 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 19:09:19 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ void			free_(void *ptr)
 		return ;
 	block = ((t_block *)(ptr - sizeof(t_block)));
 	block->in_use = 0;
-	// уменьшить счетчик занятых блоков
-	cluster = parent;//block->parent;
+	cluster = parent;
 	cluster->count--;
 	if (cluster->count == 0 && cluster->cluster_type == CLUSTER_HUGE)
 	{
 		erase_cluster(cluster);
-		return;
+		return ;
 	}
 	defragment_memory_start_from_block(block, parent);
 }

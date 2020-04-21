@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:15:18 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/15 00:15:18 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:09:39 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 pthread_mutex_t		g_address_mutex;
 
-void		lock_()
+void		lock_(void)
 {
 	static int	inited = 0;
 
@@ -34,7 +34,7 @@ void		lock_()
 	pthread_mutex_lock(&g_address_mutex);
 }
 
-void		unlock_()
+void		unlock_(void)
 {
 	pthread_mutex_unlock(&g_address_mutex);
 }

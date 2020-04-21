@@ -6,15 +6,13 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:46 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 19:53:42 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 22:59:02 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "malloc.h"
 #include "utilities/utilities.h"
-
-# define LOG_ENABLE
 
 extern void		*g_start_address;
 
@@ -71,7 +69,7 @@ static void		log_whole_structure(int dump_file_fd)
 	}
 }
 
-void		mem_dump()
+void			mem_dump(void)
 {
 	static int	log_filed_inited = 0;
 	int			dump_file;
@@ -86,7 +84,6 @@ void		mem_dump()
 	else
 		dump_file = open(LOG_FILE_FULL_PATH,
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
-
 	if (dump_file < 0)
 	{
 		perror(__FUNCTION__);
@@ -98,7 +95,7 @@ void		mem_dump()
 	unlock_();
 }
 
-void	show_alloc_mem(void)
+void			show_alloc_mem(void)
 {
 	lock_();
 	log_whole_structure(STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:38 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/17 23:01:44 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:08:43 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,25 @@ static uint8_t	get_cluster_type_by_required_size(const size_t size)
 {
 	if (0 <= size
 			&& size <= TYNY_CLUSTER_LIMIT)
-		return CLUSTER_TINY;
+		return (CLUSTER_TINY);
 	else if ((TYNY_CLUSTER_LIMIT + 1) <= size
-			&& size <= SMALL_CLUSTER_LIMIT)
-		return CLUSTER_SMALL;
-	return CLUSTER_HUGE;
+			&& size <= (SMALL_CLUSTER_LIMIT))
+		return (CLUSTER_SMALL);
+	return (CLUSTER_HUGE);
 }
 
 void			*malloc_(size_t size)
 {
-	const uint8_t cluster_type = get_cluster_type_by_required_size(size);
-	void *block;
+	const uint8_t	cluster_type = get_cluster_type_by_required_size(size);
+	void			*block;
+	t_cluster		*cluster;
 
 	if (size == 0)
 		return (NULL);
 	block = find_free_block(cluster_type, size);
 	if (block)
 		return (block);
-	// создаем новый кластер, g_start_address изменится
-	t_cluster	*cluster = new_cluster(cluster_type, size);
-	// забираем блок из кластера
+	cluster = new_cluster(cluster_type, size);
 	block = get_free_block_from_cluster(cluster, size);
 	return (block);
 }

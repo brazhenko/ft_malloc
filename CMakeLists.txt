@@ -8,7 +8,7 @@ set(CMAKE_C_STANDARD 99)
 #message("$ENV{BUILD_DIR} -- ")
 
 
-add_library(${PROJECT_NAME} SHARED sources/mutex_manager.c memory.h sources/malloc.c sources/utilities/utilities.h sources/utilities/memset_m.c sources/utilities/memcpy_m.c sources/realloc.c sources/free.c sources/new_cluster.c sources/get_free_block_from_cluster.c sources/service_funcs.c sources/malloc.h sources/main_wrappers.c sources/utilities/memmove_m.c sources/mem_dump.c sources/utilities/mem_to_hex.c sources/utilities/itoa.c sources/show_mem_hex.c sources/utilities/memcpy.c)
+add_library(${PROJECT_NAME} SHARED sources/mutex_manager.c memory.h sources/malloc.c sources/utilities/utilities.h sources/realloc.c sources/free.c sources/new_cluster.c sources/get_free_block_from_cluster.c sources/service_funcs.c sources/malloc.h sources/main_wrappers.c sources/mem_dump.c sources/utilities/mem_to_hex.c sources/utilities/itoa.c sources/show_mem_hex.c sources/utilities/memcpy.c)
 target_link_libraries(${PROJECT_NAME} pthread)
 
 

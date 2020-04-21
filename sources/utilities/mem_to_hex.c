@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 23:53:17 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 18:41:11 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:17:37 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <string.h>
 
-const char  *hex_array[256] = {
+const char	*g_hex_array[256] = {
 	"00", "01", "02", "03", "04", "05", "06", "07",
 	"08", "09", "0A", "0B", "0C", "0D", "0E", "0F",
 	"10", "11", "12", "13", "14", "15", "16", "17",
@@ -49,13 +49,13 @@ const char  *hex_array[256] = {
 	"F8", "F9", "FA", "FB", "FC", "FD", "FE", "FF"
 };
 
-int 	mem_to_hex(
+int		mem_to_hex(
 		char *out,
 		void *mem,
 		size_t size,
 		char separator)
 {
-	size_t 	i;
+	size_t	i;
 	uint8_t	*ptr;
 	char	*out_copy;
 
@@ -66,7 +66,7 @@ int 	mem_to_hex(
 	ptr = mem;
 	while (i < size)
 	{
-		memcpy(out, hex_array[ptr[i]], 2);
+		memcpy(out, g_hex_array[ptr[i]], 2);
 		out += 2;
 		*out = separator;
 		out++;
@@ -77,7 +77,7 @@ int 	mem_to_hex(
 	return ((int)(out - out_copy));
 }
 
-int 	mem_to_hex_endl(
+int		mem_to_hex_endl(
 		char *out,
 		void *mem,
 		size_t size,
@@ -91,8 +91,7 @@ int 	mem_to_hex_endl(
 	return (len);
 }
 
-
-int 	mem_to_hex_brackets_endl(
+int		mem_to_hex_brackets_endl(
 		char *out,
 		void *mem,
 		size_t size,
@@ -108,7 +107,7 @@ int 	mem_to_hex_brackets_endl(
 	return (len);
 }
 
-int 	mem_to_hex_curly_endl(
+int		mem_to_hex_curly_endl(
 		char *out,
 		void *mem,
 		size_t size,

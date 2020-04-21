@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 23:27:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 19:09:31 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:00:43 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@ static t_cluster	*cluster_alloc(size_t size)
 					PROT_READ | PROT_WRITE,
 					MAP_ANON | MAP_PRIVATE,
 					-1,
-					0
-				);
+					0);
 	if (cluster == MAP_FAILED)
 		return (NULL);
 	return (cluster);
 }
 
-static void 		insert_cluster_to_begin(t_cluster *cluster)
+static void			insert_cluster_to_begin(t_cluster *cluster)
 {
 	if (!g_start_address)
 	{
@@ -67,9 +66,9 @@ static void			init_cluster_data(const int cluster_type,
 }
 
 /*
- * new_cluster()
- * inits and puts new cluster to a private data structure.
- */
+** new_cluster()
+** inits and puts new cluster to a private data structure.
+*/
 
 t_cluster			*new_cluster(uint8_t cluster_type, size_t size)
 {
@@ -86,7 +85,6 @@ t_cluster			*new_cluster(uint8_t cluster_type, size_t size)
 	{
 		modulo = page_size - size % page_size;
 		if (modulo <= sizeof(t_block))
-			// проверяем, что хватит места, чтоб для инфы выделить место
 			modulo += page_size;
 		size_to_alloc = size + modulo;
 	}

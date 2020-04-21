@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:11:42 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/19 23:46:11 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/19 23:47:49 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ extern void		*g_start_address;
 #define TRUE	1
 #define FALSE	0
 
-int		is_block_valid(const void *ptr, t_cluster** out)
+int			is_block_valid(const void *ptr, t_cluster **out)
 {
 	t_cluster	*cluster;
 	t_block		*block;

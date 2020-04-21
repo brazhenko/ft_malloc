@@ -1,0 +1,8 @@
+Norme: free.c
+Error: file must end with a single empty line
+Error (line 43): C++ comment
+Error (line 44): C++ comment
+Error (line 49, col 2): missing space after return
+Error (line 52, col 0): no newline after block
+
+

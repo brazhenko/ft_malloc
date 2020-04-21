@@ -6,13 +6,13 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:42:18 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 19:55:06 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 23:24:30 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*memcpy_(void *dst, const void *src, size_t n)
+void		*memcpy_(void *dst, const void *src, size_t n)
 {
 	unsigned char	*d;
 	unsigned char	*s;
@@ -24,7 +24,7 @@ void	*memcpy_(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-void	*memset_(void *b, int c, size_t len)
+void		*memset_(void *b, int c, size_t len)
 {
 	unsigned char *ptr;
 	unsigned char sym;
@@ -67,6 +67,6 @@ void		*memmove_(void *dst, const void *src, size_t len)
 		}
 	}
 	else if (my_dst < my_src)
-	memcpy_(dst, src, len);
+		memcpy_(dst, src, len);
 	return (dst);
 }

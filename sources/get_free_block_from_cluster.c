@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:11 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/19 23:21:03 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 22:35:08 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void		extract_free_part(t_cluster *cluster,
 {
 	t_block		*block_to_set_free;
 
+	(void)cluster;
 	block_to_set_free = ptr + sizeof(t_block) + need;
 	block_to_set_free->size = tmp->size - need - sizeof(t_block);
 	block_to_set_free->in_use = 0;
@@ -54,7 +55,6 @@ t_block			*get_free_block_from_cluster(t_cluster *cluster, size_t need)
 			if (tmp->size > need + sizeof(t_block) + sizeof(char))
 				extract_free_part(cluster, need, ptr, tmp);
 			tmp->in_use = 1;
-			// tmp->parent = cluster;
 			cluster->count++;
 			return (ptr + sizeof(t_block));
 		}

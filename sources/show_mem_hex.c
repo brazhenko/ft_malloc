@@ -6,18 +6,18 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 17:30:28 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 19:02:16 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/21 22:59:51 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 #include "utilities/utilities.h"
 
-# define PRINT_BYTES_PER_STRING	64
+#define PRINT_BYTES_PER_STRING	64
 
 extern void		*g_start_address;
 
-void dump_block(t_block *lpblock)
+void	dump_block(t_block *lpblock)
 {
 	char		format[1024];
 	unsigned	i;
@@ -37,11 +37,11 @@ void dump_block(t_block *lpblock)
 	}
 }
 
-void 		show_mem_hex()
+void		show_mem_hex(void)
 {
 	t_cluster	*cluster;
 	t_block		*lpblock;
-	char 		format[1024];
+	char		format[1024];
 	int			tmp;
 
 	cluster = g_start_address;
