@@ -25,6 +25,12 @@ if (GLEW_FOUND)
 endif()
 
 
+
+ExternalProject_Add(imgui
+		GIT_REPOSITORY https://github.com/ocornut/imgui
+		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
+		)
+
 include_directories(imgui)
 include_directories(imgui/examples)
 include_directories(imgui/examples/libs/gl3w)

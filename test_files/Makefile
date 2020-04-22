@@ -21,4 +21,4 @@ test:
 #	./run.sh /usr/bin/time -l ./test5
 
 clean:
-	rm -f ./test0 ./test1 ./test2 ./test3 ./test3bis ./test4 ./test4bis ./test5
+	rm -f ./test0 ./test1 ./test2 ./test3 ./test3bis ./test4 ./test4bis ./test5 *.so

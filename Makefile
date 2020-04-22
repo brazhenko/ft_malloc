@@ -6,7 +6,7 @@
 #    By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 22:42:57 by a17641238         #+#    #+#              #
-#    Updated: 2020/04/22 14:47:58 by a17641238        ###   ########.fr        #
+#    Updated: 2020/04/22 14:48:09 by a17641238        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ HOSTLIB = libft_malloc_$(HOSTTYPE).so
 
 all:
 	@make --directory sources
-	@ln -fs sources/libft_malloc_$(HOSTTYPE).so  "${NAME}"
 	@cp sources/libft_malloc_$(HOSTTYPE).so .
+	@ln -fs libft_malloc_$(HOSTTYPE).so  "${NAME}"
 
 re: fclean all
 
