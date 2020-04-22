@@ -68,8 +68,11 @@ int		mem_to_hex(
 	{
 		memcpy(out, g_hex_array[ptr[i]], 2);
 		out += 2;
-		*out = separator;
-		out++;
+		if (separator)
+		{
+			*out = separator;
+			out++;
+		}
 		i++;
 	}
 	ptr--;

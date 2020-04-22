@@ -7,8 +7,8 @@ Malloc is a C pet-project from 42 course (task is available [here](res/ft_malloc
 This project was written to build your own allocator using system calls
 and learn some allocation algorithms.
 
-[Some info i was inspired by 1.](https://habr.com/ru/post/270009/) \
-[Some info i was inspired by 2.](https://habr.com/ru/post/158347/)
+[Some info I was inspired by 1.](https://habr.com/ru/post/270009/) \
+[Some info I was inspired by 2.](https://habr.com/ru/post/158347/)
 
 
 
@@ -39,12 +39,13 @@ lrwxr-xr-x   1 a17641238  staff       29 Apr 22 16:49 libft_malloc.so -> libft_m
 ## Build allocation visualizer
 
 ```bash
-$> brew install glfw3 
+$> brew install glfw3
+$> brew install cmake 
 $> cd Visualizer
 $> cmake . && make
 ```
 
-## Usage libft_malloc.so
+## Usage of libft_malloc.so
 
 ```bash
 gcc main.c -L$DIR -lft_malloc.so
@@ -55,7 +56,7 @@ OR
 ./run.sh /usr/bin/time -l ./bin
 ```
 
-## Usage allocation Visualizer
+## Usage of allocation Visualizer
 
 ```bash
 
@@ -63,7 +64,9 @@ OR
 ./AllocViewer
 ```
 
-![AllocViewer](res/Screenshot%202020-04-22%20at%2017.25.23.png)
+![example 2](res/Screenshot%202020-04-22%20at%2017.25.23.png)
 
+
+![example 2](res/Screenshot%202020-04-22%20at%2017.25.23.png)
 
 

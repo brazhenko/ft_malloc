@@ -150,6 +150,7 @@ int main(int, char**)
 						ss >> c;
 						size_t		address;
 						ss >> std::hex >> address;
+						std::cout << std::hex << "address: " << address << std::endl;
 						ss >> c;
 						ss >> std::dec >> address;
 						std::cout << "room: " << address << std::endl;

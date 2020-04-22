@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:46 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 17:19:49 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 17:44:56 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ extern void		*g_start_address;
 static void		bind_cluster_string(char *out, t_cluster *cluster)
 {
 	memcpy_(out, "C:0x", 4);
-	itoa((int)cluster, (uint8_t*)(&out[0] + 4), sizeof(out), 16);
+	mem_to_hex((&out[0] + 4), &cluster, sizeof(cluster), '\0');
 	strcat_(out, ":");
-	itoa(cluster->size, (uint8_t*)(&out[0] + strlen(out)), sizeof(out), 10);
+	itoa10((int)cluster->size, (char*)(&out[0] + strlen(out)));
 	strcat_(out, ":");
 	if (cluster->cluster_type == CLUSTER_TINY)
 		strcat_(out, "TYNY");
@@ -37,7 +37,7 @@ static void		bind_cluster_string(char *out, t_cluster *cluster)
 static void		bind_block_string(char *out, t_block *block)
 {
 	memcpy_(out, "B:0x", 4);
-	itoa((int)block, (uint8_t*)(&out[0] + 4), sizeof(out), 16);
+	mem_to_hex((&out[0] + 4), &block, sizeof(block), '\0');
 	strcat_(out, ":");
 	itoa10((int)block->size, (char*)(&out[0] + strlen(out)));
 	strcat_(out, ":");
@@ -79,7 +79,7 @@ void			mem_dump(void)
 	{
 		log_filed_inited = 1;
 		dump_file = open(LOG_FILE_FULL_PATH,
-				O_CREAT | O_WRONLY, 0644);
+				O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	}
 	else
 		dump_file = open(LOG_FILE_FULL_PATH,
