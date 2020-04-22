@@ -51,7 +51,7 @@ char			*itoa10(int n, char *out)
 	return (str);
 }
 
-void		strrev(unsigned char *str)
+void			strrev(unsigned char *str)
 {
 	int				i;
 	int				j;
@@ -71,7 +71,7 @@ void		strrev(unsigned char *str)
 	}
 }
 
-int			itoa(int num, unsigned char *str, int len, int base)
+int				itoa(int num, unsigned char *str, int len, int base)
 {
 	int		i;
 	int		digit;
