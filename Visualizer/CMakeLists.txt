@@ -25,11 +25,10 @@ if (GLEW_FOUND)
 endif()
 
 
-
-ExternalProject_Add(imgui
-		GIT_REPOSITORY https://github.com/ocornut/imgui
-		CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-		)
+git_clone(
+		PROJECT_NAME    imgui
+		GIT_URL         https://github.com/ocornut/imgui
+		GIT_BRANCH      master)
 
 include_directories(imgui)
 include_directories(imgui/examples)
