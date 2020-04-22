@@ -1,6 +1,0 @@
-Wed Apr 22 00:49:56 MSK 2020
-./run.sh /usr/bin/time -l ./test2
-       213  page reclaims
-./run.sh /usr/bin/time -l ./test3
-Bonjours
-       214  page reclaims
