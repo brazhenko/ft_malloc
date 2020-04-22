@@ -1,5 +1,5 @@
 LIBNAME		= libutils.a
-FLAGS		= -Wall -Wextra -Werror -pedantic
+FLAGS		= -Wall  -pedantic
 CC			= clang
 CFLAGS		= -c -Wall -Wextra -Werror -I .
 LDFLAGS=

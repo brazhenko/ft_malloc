@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:41 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 23:06:32 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 00:19:44 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@
 # define CLUSTER_SMALL			0x1
 # define CLUSTER_HUGE			0x2
 
-# define TYNY_CLUSTER_LIMIT 	4096
-# define SMALL_CLUSTER_LIMIT	8192
+# define TYNY_CLUSTER_LIMIT 	1024
+# define SMALL_CLUSTER_LIMIT	2048
 
-# define PAGES_PER_TINY_BLOCK	16
-# define PAGES_PER_SMALL_BLOCK	32
+# define PAGES_PER_TINY_BLOCK	64
+# define PAGES_PER_SMALL_BLOCK	64
 
 /*
 ** struct		s_cluster

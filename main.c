@@ -1,29 +1,19 @@
-#include "memory.h"
-#include "Tests/test.h"
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
-int main(int argc, char **argv)
+int main()
 {
-//	MAKE_TEST(test1)
-//	MAKE_TEST(test2)
-//	MAKE_TEST(test3)
-//	MAKE_TEST(test4)
-//	MAKE_TEST(test5)
-//	MAKE_TEST(test6)
-//	MAKE_TEST(test7)
-//	MAKE_TEST(test8)
+	int i;
+	char *addr;
 
-	testHexPrint();
-	void* ptrs[100];
-
-	ptrs[0] = malloc(24);
-	memset(ptrs[0], 'a', 24);
-
-	ptrs[1] = malloc(128);
-	memset(ptrs[1], 'A', 128);
-	show_mem_hex();
-	show_alloc_mem();
-//	free(ptrs[2]);
-//	free(ptrs[3]);
-//	free(ptrs[1]);
+	i = 0;
+	while (i < 1024)
+	{
+		addr = (char*)malloc(1024);
+		addr[0] = 42;
+		free(addr);
+		i++;
+	}
 	return (0);
 }

@@ -17,7 +17,7 @@
 
 extern void		*g_start_address;
 
-void	dump_block(t_block *lpblock)
+void		dump_block(t_block *lpblock)
 {
 	char		format[1024];
 	unsigned	i;

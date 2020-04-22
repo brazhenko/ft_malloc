@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:15:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 23:03:28 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 15:14:04 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 #include "utilities/utilities.h"
 
 void	*g_start_address;
+
+static void	*cut_block(void *ptr, size_t size, t_block *current_block,
+		t_block *next_block)
+{
+	next_block->size -= (size - current_block->size);
+	memmove_(((void*)next_block) + (size - current_block->size),
+			((void*)next_block), sizeof(t_block));
+	current_block->size = size;
+	return (ptr);
+}
+
+static void	*ret_n_free(void *ptr)
+{
+	free_(ptr);
+	return (NULL);
+}
 
 /*
 **	void *ptr:
@@ -31,7 +47,7 @@ void	*g_start_address;
 **	4) if [ptr] was not malloc()'ed or was free()'d behaviour is undefined
 */
 
-void	*realloc_(void *ptr, size_t size)
+void		*realloc_(void *ptr, size_t size)
 {
 	void		*new_ptr;
 	t_block		*current_block;
@@ -41,10 +57,7 @@ void	*realloc_(void *ptr, size_t size)
 	if (!is_block_valid(ptr, &parent))
 		return (NULL);
 	if (!size)
-	{
-		free_(ptr);
-		return (NULL);
-	}
+		return (ret_n_free(ptr));
 	current_block = ptr - sizeof(t_block);
 	if (size <= current_block->size)
 		return (ptr);
@@ -53,13 +66,7 @@ void	*realloc_(void *ptr, size_t size)
 	{
 		defragment_memory_start_from_block(next_block, parent);
 		if (next_block->size + sizeof(t_block) + current_block->size >= size)
-		{
-			next_block->size -= (size - current_block->size);
-			memmove_(((void*)next_block) + (size - current_block->size),
-					((void*)next_block), sizeof(t_block));
-			current_block->size = size;
-			return (ptr);
-		}
+			return (cut_block(ptr, size, current_block, next_block));
 	}
 	new_ptr = malloc_(size);
 	if (!new_ptr)
