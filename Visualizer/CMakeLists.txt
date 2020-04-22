@@ -24,12 +24,6 @@ if (GLEW_FOUND)
 	#link_libraries(${GLEW_LIBRARIES})
 endif()
 
-
-git_clone(
-		PROJECT_NAME    imgui
-		GIT_URL         https://github.com/ocornut/imgui
-		GIT_BRANCH      master)
-
 include_directories(imgui)
 include_directories(imgui/examples)
 include_directories(imgui/examples/libs/gl3w)
