@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 23:24:15 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 14:45:01 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 14:46:18 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void		*malloc(size_t size);
 void		*realloc(void *ptr, size_t size);
 void		free(void *ptr);
 void		show_alloc_mem();
-void 		show_mem_hex();
+void		show_mem_hex();
 
 #endif
