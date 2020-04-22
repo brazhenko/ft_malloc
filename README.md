@@ -1,3 +1,5 @@
+#CMAKE VERSION OF PROJECT
+
 # Malloc
 
 Malloc is a C pet-project from 42 course (task is available [here](res/ft_malloc.en.pdf)).
