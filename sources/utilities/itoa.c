@@ -6,11 +6,50 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 23:19:11 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 15:16:35 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 17:19:24 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
+
+static int		ft_numlen(int n, int minus)
+{
+	int numlen;
+
+	numlen = 1;
+	while ((n /= 10))
+		numlen++;
+	return (numlen + minus);
+}
+
+static int		abs_(int d)
+{
+	return (((d) < 0) ? (-(d)) : (d));
+}
+
+char			*itoa10(int n, char *out)
+{
+	char	*str;
+	int		numlen;
+	int		minus;
+	int		digit;
+
+	minus = (n < 0) ? 1 : 0;
+	numlen = ft_numlen(n, minus);
+	if ((str = out))
+	{
+		str[numlen--] = '\0';
+		while (numlen >= minus)
+		{
+			digit = n % 10;
+			str[numlen--] = abs_(digit) + '0';
+			n /= 10;
+		}
+		if (minus)
+			str[0] = '-';
+	}
+	return (str);
+}
 
 void		strrev(unsigned char *str)
 {

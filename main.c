@@ -1,19 +1,28 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include "memory.h"
 
 int main()
 {
-	int i;
-	char *addr;
+	void	*add[100];
 
-	i = 0;
-	while (i < 1024)
-	{
-		addr = (char*)malloc(1024);
-		addr[0] = 42;
-		free(addr);
-		i++;
-	}
+	add[0] = malloc(1024);
+	add[0] = malloc(1024);
+	add[0] = malloc(1024);
+	add[1] = malloc(214);
+	add[0] = malloc(1024);
+
+
+
+	add[2] = malloc(1234);
+	add[2] = malloc(1234);
+
+	free(add[1]);
+
+	add[3] = malloc(132948);
+
+	add[4] = malloc(12341);
+	show_alloc_mem();
 	return (0);
 }

@@ -1,6 +1,6 @@
 # Malloc
 
-Malloc is a C pet-project from 42 course (task is available [here](ft_malloc.en.pdf)).
+Malloc is a C pet-project from 42 course (task is available [here](res/ft_malloc.en.pdf)).
 
 ## About
 
@@ -44,7 +44,7 @@ $> cd Visualizer
 $> cmake . && make
 ```
 
-## Usage
+## Usage libft_malloc.so
 
 ```bash
 gcc main.c -L$DIR -lft_malloc.so
@@ -55,6 +55,15 @@ OR
 ./run.sh /usr/bin/time -l ./bin
 ```
 
+## Usage allocation Visualizer
+
+```bash
+
+# start it after the program used libft_malloc.so exited
+./AllocViewer
+```
+
+![AllocViewer](res/Screenshot%202020-04-22%20at%2017.25.23.png)
 
 
 

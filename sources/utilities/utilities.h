@@ -24,6 +24,7 @@ void	*memset_(void *b, int c, size_t len);
 void	*memcpy_(void *dst, const void *src, size_t n);
 char	*strcat_(char *s1, const char *s2);
 void	*memmove_(void *dst, const void *src, size_t len);
+char	*itoa10(int n, char *out);
 
 int		mem_to_hex_endl(
 		char *out,

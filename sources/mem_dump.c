@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:46 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 22:59:02 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/04/22 17:19:49 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static void		bind_cluster_string(char *out, t_cluster *cluster)
 	out[strlen(out)] = '\n';
 }
 
-static void		bind_bock_string(char *out, t_block *block)
+static void		bind_block_string(char *out, t_block *block)
 {
 	memcpy_(out, "B:0x", 4);
 	itoa((int)block, (uint8_t*)(&out[0] + 4), sizeof(out), 16);
 	strcat_(out, ":");
-	itoa((int)block->size, (uint8_t*)(&out[0] + strlen(out)), sizeof(out), 10);
+	itoa10((int)block->size, (char*)(&out[0] + strlen(out)));
 	strcat_(out, ":");
 	itoa(block->in_use, (uint8_t*)(&out[0] + strlen(out)), sizeof(out), 10);
 	out[strlen(out)] = '\n';
@@ -61,7 +61,7 @@ static void		log_whole_structure(int dump_file_fd)
 		while ((void*)block < cluster->end_)
 		{
 			memset(format, 0, sizeof(format));
-			bind_bock_string(format, block);
+			bind_block_string(format, block);
 			write(dump_file_fd, format, strlen(format));
 			block = ((void*)block) + sizeof(t_block) + block->size;
 		}
