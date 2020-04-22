@@ -4,13 +4,22 @@ Malloc is a C pet-project from 42 course (task is available [here](res/ft_malloc
 
 ## About
 
-This project was written to build your own allocator using system calls
+This project was written to build your own thread-safe allocator (malloc/realloc/free) using system calls
 and learn some allocation algorithms.
 
 [Some info I was inspired by 1.](https://habr.com/ru/post/270009/) \
 [Some info I was inspired by 2.](https://habr.com/ru/post/158347/)
 
+## Interface
 
+```c++
+void		*malloc(size_t size);
+void		*realloc(void *ptr, size_t size);
+void		free(void *ptr);
+
+void		show_alloc_mem();
+void 		show_mem_hex();
+```
 
 ## Download
 
