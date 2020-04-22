@@ -67,6 +67,6 @@ OR
 ![example 2](res/Screenshot%202020-04-22%20at%2017.25.23.png)
 
 
-![example 2](res/Screenshot%202020-04-22%20at%2017.25.23.png)
+![example 2](res/Screenshot%202020-04-22%20at%2017.42.37.png)
 
 
