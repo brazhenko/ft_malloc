@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:15:23 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 15:14:04 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/07 10:42:45 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void		*realloc_(void *ptr, size_t size)
 	t_cluster	*parent;
 	t_block		*next_block;
 
+	if (!ptr)
+		return (malloc_(size));
 	if (!is_block_valid(ptr, &parent))
 		return (NULL);
 	if (!size)

@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:14:46 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 17:44:56 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/07 10:27:22 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void		bind_cluster_string(char *out, t_cluster *cluster)
 	memcpy_(out, "C:0x", 4);
 	mem_to_hex((&out[0] + 4), &cluster, sizeof(cluster), '\0');
 	strcat_(out, ":");
-	itoa10((int)cluster->size, (char*)(&out[0] + strlen(out)));
+	itoa10((int)cluster->size, (char*)(&out[0] + ft_strlen(out)));
 	strcat_(out, ":");
 	if (cluster->cluster_type == CLUSTER_TINY)
 		strcat_(out, "TYNY");
@@ -31,7 +31,7 @@ static void		bind_cluster_string(char *out, t_cluster *cluster)
 		strcat_(out, "HUGE");
 	else
 		strcat_(out, "ERRORTYPE");
-	out[strlen(out)] = '\n';
+	out[ft_strlen(out)] = '\n';
 }
 
 static void		bind_block_string(char *out, t_block *block)
@@ -39,10 +39,10 @@ static void		bind_block_string(char *out, t_block *block)
 	memcpy_(out, "B:0x", 4);
 	mem_to_hex((&out[0] + 4), &block, sizeof(block), '\0');
 	strcat_(out, ":");
-	itoa10((int)block->size, (char*)(&out[0] + strlen(out)));
+	itoa10((int)block->size, (char*)(&out[0] + ft_strlen(out)));
 	strcat_(out, ":");
-	itoa(block->in_use, (uint8_t*)(&out[0] + strlen(out)), sizeof(out), 10);
-	out[strlen(out)] = '\n';
+	itoa(block->in_use, (uint8_t*)(&out[0] + ft_strlen(out)), sizeof(out), 10);
+	out[ft_strlen(out)] = '\n';
 }
 
 static void		log_whole_structure(int dump_file_fd)
@@ -54,15 +54,15 @@ static void		log_whole_structure(int dump_file_fd)
 	cluster = g_start_address;
 	while (cluster)
 	{
-		memset(format, 0, sizeof(format));
+		memset_(format, 0, sizeof(format));
 		bind_cluster_string(format, cluster);
-		write(dump_file_fd, format, strlen(format));
+		write(dump_file_fd, format, ft_strlen(format));
 		block = ((void*)cluster) + sizeof(t_cluster);
 		while ((void*)block < cluster->end_)
 		{
-			memset(format, 0, sizeof(format));
+			memset_(format, 0, sizeof(format));
 			bind_block_string(format, block);
-			write(dump_file_fd, format, strlen(format));
+			write(dump_file_fd, format, ft_strlen(format));
 			block = ((void*)block) + sizeof(t_block) + block->size;
 		}
 		cluster = cluster->next;
@@ -86,7 +86,6 @@ void			mem_dump(void)
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (dump_file < 0)
 	{
-		perror(__FUNCTION__);
 		return ;
 	}
 	log_whole_structure(dump_file);
