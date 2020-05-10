@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:11:42 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/19 23:47:49 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/09 18:10:34 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,17 @@ int			is_block_valid(const void *ptr, t_cluster **out)
 	if (!ptr)
 		return (FALSE);
 	cluster = g_start_address;
+
+	//write(2, "valid - ", 8);
+
+
 	while (cluster)
 	{
 		block = ((void*)cluster) + sizeof(t_cluster);
+
 		while ((void*)block < ((void*)cluster) + cluster->size)
 		{
+
 			if (((void*)block + sizeof(t_block)) == ptr)
 			{
 				if (out != NULL)

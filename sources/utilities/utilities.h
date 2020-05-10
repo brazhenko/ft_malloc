@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 23:23:51 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/22 17:40:12 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/07 16:32:05 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*memcpy_(void *dst, const void *src, size_t n);
 char	*strcat_(char *s1, const char *s2);
 void	*memmove_(void *dst, const void *src, size_t len);
 char	*itoa10(int n, char *out);
+char	*sztoa10(size_t n, char *out);
 size_t	ft_strlen(const char *s);
 
 int		mem_to_hex(

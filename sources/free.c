@@ -6,7 +6,7 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:13:57 by a17641238         #+#    #+#             */
-/*   Updated: 2020/05/07 11:09:08 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/09 17:57:06 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void			free_(void *ptr)
 
 	if (!is_block_valid(ptr, &parent))
 		return ;
+
 	block = ((t_block *)(ptr - sizeof(t_block)));
 	block->in_use = 0;
 	cluster = parent;

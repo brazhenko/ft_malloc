@@ -9,8 +9,8 @@ int main()
 	while (i < 1)
 	{ 
 		addr = (char*)malloc(1024);
-		// addr[0] = 42;
-		// free(addr);
+		 addr[0] = 42;
+		 free(addr);
 		i++; 
 	} 
 	return (0); 

@@ -6,14 +6,13 @@ int main()
 {
 	char* cluster;
 
-//	cluster = 
-//			mmap(0,
-//			1024,
-//			PROT_READ | PROT_WRITE,
-//			MAP_ANON | MAP_PRIVATE,
-//			-1,
-//			0);
-//	cluster[0] = 42;
-	struct rusage sg;
-	getrusage(, &sg);
+	int i;
+	char *addr;
+
+	i = 0;
+	while (i < 1024)
+	{
+		i++;
+	}
+	return (0);
 }
