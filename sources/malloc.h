@@ -34,8 +34,8 @@
 # define TYNY_CLUSTER_LIMIT 	4096
 # define SMALL_CLUSTER_LIMIT	8192
 
-# define PAGES_PER_TINY_BLOCK	64
-# define PAGES_PER_SMALL_BLOCK	64
+# define PAGES_PER_TINY_BLOCK	128
+# define PAGES_PER_SMALL_BLOCK	256
 
 /*
 ** struct		s_cluster
