@@ -6,13 +6,14 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/19 23:53:17 by a17641238         #+#    #+#             */
-/*   Updated: 2020/04/21 23:17:37 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/10 20:28:18 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>
+#include "utilities.h"
 
 const char	*g_hex_array[256] = {
 	"00", "01", "02", "03", "04", "05", "06", "07",
@@ -66,7 +67,7 @@ int		mem_to_hex(
 	ptr = mem;
 	while (i < size)
 	{
-		memcpy(out, g_hex_array[ptr[i]], 2);
+		memcpy_(out, g_hex_array[ptr[i]], 2);
 		out += 2;
 		if (separator)
 		{
