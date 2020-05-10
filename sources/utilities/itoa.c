@@ -6,31 +6,12 @@
 /*   By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/21 23:19:11 by a17641238         #+#    #+#             */
-/*   Updated: 2020/05/06 21:48:19 by a17641238        ###   ########.fr       */
+/*   Updated: 2020/05/10 17:57:12 by a17641238        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-
-size_t	ft_strlen(const char *s)
-{
-	size_t len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-static int		ft_numlen(int n, int minus)
-{
-	int numlen;
-
-	numlen = 1;
-	while ((n /= 10))
-		numlen++;
-	return (numlen + minus);
-}
+#include "utilities.h"
 
 static int		abs_(int d)
 {
@@ -131,4 +112,3 @@ int				itoa(int num, unsigned char *str, int len, int base)
 	strrev(str);
 	return (0);
 }
-

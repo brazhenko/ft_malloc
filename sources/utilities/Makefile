@@ -8,6 +8,7 @@ LDFLAGS=
 SOURCES =itoa.c \
          mem_to_hex.c \
          memcpy.c \
+         nums.c \
 
 HEADERS =utilities.h
 

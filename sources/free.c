@@ -38,7 +38,6 @@ void			free_(void *ptr)
 
 	if (!is_block_valid(ptr, &parent))
 		return ;
-
 	block = ((t_block *)(ptr - sizeof(t_block)));
 	block->in_use = 0;
 	cluster = parent;

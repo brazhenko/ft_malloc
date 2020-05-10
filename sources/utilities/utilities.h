@@ -27,6 +27,7 @@ void	*memmove_(void *dst, const void *src, size_t len);
 char	*itoa10(int n, char *out);
 char	*sztoa10(size_t n, char *out);
 size_t	ft_strlen(const char *s);
+int		ft_numlen(int n, int minus);
 
 int		mem_to_hex(
 		char *out,
