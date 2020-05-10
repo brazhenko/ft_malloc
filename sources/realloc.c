@@ -31,6 +31,18 @@ static void	*ret_n_free(void *ptr)
 	return (NULL);
 }
 
+static void	*aloc_and_copy(size_t size, void *ptr, t_block *current_block)
+{
+	void	*new_ptr;
+
+	new_ptr = malloc_(size);
+	if (!new_ptr)
+		return (NULL);
+	memcpy_(new_ptr, ptr, current_block->size);
+	free_(ptr);
+	return (new_ptr);
+}
+
 /*
 **	void *ptr:
 ** 	[ptr] - pointer to memory allocated by malloc()
@@ -70,10 +82,6 @@ void		*realloc_(void *ptr, size_t size)
 		if (next_block->size + sizeof(t_block) + current_block->size >= size)
 			return (cut_block(ptr, size, current_block, next_block));
 	}
-	new_ptr = malloc_(size);
-	if (!new_ptr)
-		return (NULL);
-	memcpy_(new_ptr, ptr, current_block->size);
-	free_(ptr);
+	new_ptr = aloc_and_copy(size, ptr, current_block);
 	return (new_ptr);
 }
