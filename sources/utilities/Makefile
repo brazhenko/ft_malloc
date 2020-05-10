@@ -1,5 +1,5 @@
 LIBNAME		= libutils.a
-FLAGS		= -Wall  -pedantic
+FLAGS		= -Wall -Wextra -Weror -pedantic
 CC			= clang
 CFLAGS		= -c -Wall -Wextra -Werror -I .
 LDFLAGS=
@@ -18,8 +18,8 @@ OBJECTS=$(SOURCES:.c=.o)
 	@ar rc $(LIBNAME)  $(OBJECTS)
 	@echo $(LIBNAME) "compiled!"
 
-.c.o:
-	@$(CC) $(CFLAGS) $< -o $@
+%.o : %.c $(HEADERS)
+	$(CC) $(CFLAGS)  $< -o $@
 
 clear: all clean
 

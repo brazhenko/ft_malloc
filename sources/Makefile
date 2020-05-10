@@ -6,7 +6,7 @@
 #    By: a17641238 <a17641238@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/21 22:21:37 by a17641238         #+#    #+#              #
-#    Updated: 2020/04/22 00:47:28 by a17641238        ###   ########.fr        #
+#    Updated: 2020/05/10 20:51:39 by a17641238        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC =	malloc.c \
 
 OBJDIR = objs
 
-CFLAGS = -Wall -g -c
+CFLAGS = -Wall -Wextra -Werror -g -c
 
 LDFLAGS = -shared
 
@@ -68,8 +68,8 @@ $(HOSTLIB): UTLIB $(MALLOC_OBJ)
 	@echo $(HOSTLIB) compiled!
 
 
-%.o : %.c
-	@$(CC) $(CFLAGS)  $< -o $@
+%.o : %.c $(DEP)
+	$(CC) $(CFLAGS)  $< -o $@
 
 fclean: clean
 	@rm -f $(NAME) $(HOSTLIB)
