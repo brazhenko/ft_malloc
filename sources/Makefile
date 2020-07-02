@@ -49,21 +49,22 @@ LIB = -Lutilities -lutils -lpthread
 
 INCL = -I utilities -I .. -I .
 
+UTLIB = utilities/libutils.a
 
 ############################## RULES ###########################################
 
 all: ${NAME}
 	@echo ${G}Success"   "[${NAME}]${X}
 
-${NAME}: UTLIB $(HOSTLIB)
+${NAME}: $(HOSTLIB)
 	@echo ${C}Linking"   "[${HOSTLIB}]...${X}
 	@ln -fs ${HOSTLIB} ${NAME}
 
-UTLIB:
+${UTLIB}:
 	@make --directory utilities
 
 
-$(HOSTLIB): UTLIB $(MALLOC_OBJ)
+$(HOSTLIB): $(MALLOC_OBJ) ${UTLIB}
 	@$(CC) -shared -o $(HOSTLIB) $(MALLOC_OBJ) $(LIB)
 	@echo $(HOSTLIB) compiled!
 
