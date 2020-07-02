@@ -38,9 +38,9 @@ git clone --recursive [ref]
 ## Build libft_malloc.so
 
 ```bash
-$> make
+make
 #
-$> ls -l
+ls -l
 lrwxr-xr-x   1 a17641238  staff       29 Apr 22 16:49 libft_malloc.so -> libft_malloc_x86_64_Darwin.so
 -rwxr-xr-x   1 a17641238  staff    27680 Apr 22 16:49 libft_malloc_x86_64_Darwin.so
 ```
@@ -48,10 +48,10 @@ lrwxr-xr-x   1 a17641238  staff       29 Apr 22 16:49 libft_malloc.so -> libft_m
 ## Build allocation visualizer
 
 ```bash
-$> brew install glfw3
-$> brew install cmake 
-$> cd Visualizer
-$> cmake . && make
+brew install glfw3
+brew install cmake 
+cd Visualizer
+cmake . && make
 ```
 
 ## Usage of libft_malloc.so
@@ -62,7 +62,7 @@ gcc main.c -L$DIR -lft_malloc.so
 OR
 
 ```bash
-./run.sh /usr/bin/time -l ./bin
+./run.sh /usr/bin/time -l ./bin # you can inject library by hand.
 ```
 
 ## Usage of allocation Visualizer
